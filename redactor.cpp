@@ -1,5 +1,6 @@
 #include "redactor.h"
 #include "ui_redactor.h"
+#include "Parser/xmlparser.h"
 
 Redactor::Redactor(QWidget *parent)
     : QMainWindow(parent)
@@ -11,5 +12,11 @@ Redactor::Redactor(QWidget *parent)
 Redactor::~Redactor()
 {
     delete ui;
+}
+
+
+void Redactor::on_pushButton_clicked()
+{
+   XMLParser().read();
 }
 

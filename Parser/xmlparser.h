@@ -2,10 +2,11 @@
 #define XMLPARSER_H
 
 
-class XmlParser
+class XMLParser
 {
 public:
-    XmlParser();
+    XMLParser();
+    void read();
 };
 
 #endif // XMLPARSER_H
