@@ -11,11 +11,17 @@ CONFIG += c++17
 
 SOURCES += \
     Parser/xmlparser.cpp \
+    Tree/data.cpp \
+    Tree/tree.cpp \
+    Tree/treenode.cpp \
     main.cpp \
     redactor.cpp
 
 HEADERS += \
     Parser/xmlparser.h \
+    Tree/data.h \
+    Tree/tree.h \
+    Tree/treenode.h \
     redactor.h
 
 FORMS += \

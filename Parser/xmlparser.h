@@ -9,7 +9,8 @@ public:
     XmlParser();
     void read();
 private:
-    void deep_dive(QDomNode &root);
+    void deepDive(QDomNode &root);
+
 };
 
 #endif // XMLPARSER_H
