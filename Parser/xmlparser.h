@@ -2,14 +2,17 @@
 #define XMLPARSER_H
 
 #include <QDomNode>
+#include "../Tree/tree.h"
 
 class XmlParser
 {
 public:
     XmlParser();
-    void read();
+    ~XmlParser();
+    Tree &read();
 private:
-    void deepDive(QDomNode &root);
+    TreeNode* deepDive(QDomNode &parent, TreeNode *tree_parent);
+    Tree *_tree;
 
 };
 

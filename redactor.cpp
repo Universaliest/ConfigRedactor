@@ -1,6 +1,7 @@
 #include "redactor.h"
 #include "ui_redactor.h"
 #include "Parser/xmlparser.h"
+#include "Tree/tree.h"
 
 Redactor::Redactor(QWidget *parent)
     : QMainWindow(parent)
@@ -17,6 +18,7 @@ Redactor::~Redactor()
 
 void Redactor::on_pushButton_clicked()
 {
-   XmlParser().read();
+    XmlParser *parser = new XmlParser();
+    Tree tree = parser->read();
 }
 

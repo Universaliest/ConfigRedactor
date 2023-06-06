@@ -7,6 +7,7 @@ class Tree
 {
 public:
     Tree(TreeNode *root);
+    ~Tree();
 
     TreeNode* root();
 private:

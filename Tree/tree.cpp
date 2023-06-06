@@ -7,3 +7,8 @@ Tree::Tree(TreeNode *root)
     else
         throw "У корня не может быть родителей!";
 }
+
+Tree::~Tree()
+{
+    delete _root;
+}

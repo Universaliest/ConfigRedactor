@@ -12,46 +12,54 @@ XmlParser::XmlParser()
 
 }
 
-void XmlParser::read()
+XmlParser::~XmlParser()
+{
+    delete _tree;
+}
+
+Tree &XmlParser::read()
 {
     QFile XMLFile("D:/Qt Projects/ConfigRedactor/Parser/settings.xml");
     if (!XMLFile.open(QIODevice::ReadOnly))
     {
-        qDebug() << "[ERROR]\tXML file not open. Error:" << XMLFile.error();
-        qDebug() << XMLFile.fileName();
-        return;
+        throw "Файл не открывается!";
     }
 
     QDomDocument XMLDom;
     XMLDom.setContent(&XMLFile);
     XMLFile.close();
 
-    QDomNode root = XMLDom.documentElement();
-    deepDive(root);
+    QDomNode root = XMLDom.documentElement().childNodes().at(0);
+
+    _tree = new Tree(deepDive(root, nullptr));
+
+    return *_tree;
 
 }
 
 int deep_level = 0;
+Data *data;
 
-void XmlParser::deepDive(QDomNode &root)
+TreeNode* XmlParser::deepDive(QDomNode &parent, TreeNode *tree_parent)
 {
-    QString name = root.attributes().namedItem("displayed_name").nodeValue();
-    QString description = root.attributes().namedItem("description").nodeValue();
-    QString value = root.attributes().namedItem("value").nodeValue();
+    QString name = parent.attributes().namedItem("displayed_name").nodeValue();
+    QString description = parent.attributes().namedItem("description").nodeValue();
+    QString value = parent.attributes().namedItem("value").nodeValue();
 
+    data = new Data(name, description, value);
+    TreeNode *node = new TreeNode(tree_parent, {}, data);
+    delete data;
 
-    qDebug() << deep_level << name << "\t" << description << '\t' << value;
-
-    if (root.hasChildNodes())
+    if (parent.hasChildNodes())
     {
-        QDomNodeList child_list = root.childNodes();
+        QDomNodeList child_list = parent.childNodes();
         for (int child_index = 0; child_index < child_list.count(); child_index++)
         {
             QDomNode child = QDomNode(child_list.at(child_index));
             deep_level++;
-            deepDive(child);
+            node->appendChild(deepDive(child, node));
             deep_level--;
         }
     }
-
+    return node;
 }

@@ -14,6 +14,11 @@ TreeNode::TreeNode(TreeNode *parent, QList<TreeNode*> children, Data *data)
 
 TreeNode::~TreeNode()
 {
+    if (_childrenCount)
+    {
+        for (int i = 0; i < _childrenCount; i++)
+            delete _children[i];
+    }
     delete _data;
 }
 
