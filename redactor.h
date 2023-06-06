@@ -2,6 +2,8 @@
 #define REDACTOR_H
 
 #include <QMainWindow>
+#include <Tree/tree.h>
+#include <QStandardItemModel>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Redactor; }
@@ -15,10 +17,9 @@ public:
     Redactor(QWidget *parent = nullptr);
     ~Redactor();
 
-private slots:
-    void on_pushButton_clicked();
-
 private:
     Ui::Redactor *ui;
+    Tree *tree;
+    QStandardItemModel *model;
 };
 #endif // REDACTOR_H

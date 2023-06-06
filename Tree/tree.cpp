@@ -12,3 +12,8 @@ Tree::~Tree()
 {
     delete _root;
 }
+
+TreeNode *Tree::root()
+{
+    return _root;
+}
