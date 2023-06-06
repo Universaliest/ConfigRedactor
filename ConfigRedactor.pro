@@ -14,6 +14,7 @@ SOURCES += \
     Tree/data.cpp \
     Tree/tree.cpp \
     Tree/treenode.cpp \
+    Visual/treemodel.cpp \
     main.cpp \
     redactor.cpp
 
@@ -22,6 +23,7 @@ HEADERS += \
     Tree/data.h \
     Tree/tree.h \
     Tree/treenode.h \
+    Visual/treemodel.h \
     redactor.h
 
 FORMS += \
