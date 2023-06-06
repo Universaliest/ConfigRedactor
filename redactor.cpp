@@ -8,17 +8,11 @@ Redactor::Redactor(QWidget *parent)
     , ui(new Ui::Redactor)
 {
     ui->setupUi(this);
+    Tree *tree = XmlParser().read();
+    //Вот здесь
 }
 
 Redactor::~Redactor()
 {
     delete ui;
 }
-
-
-void Redactor::on_pushButton_clicked()
-{
-    XmlParser *parser = new XmlParser();
-    Tree tree = parser->read();
-}
-

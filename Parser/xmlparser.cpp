@@ -17,7 +17,7 @@ XmlParser::~XmlParser()
     delete _tree;
 }
 
-Tree &XmlParser::read()
+Tree *XmlParser::read()
 {
     QFile XMLFile("D:/Qt Projects/ConfigRedactor/Parser/settings.xml");
     if (!XMLFile.open(QIODevice::ReadOnly))
@@ -33,7 +33,7 @@ Tree &XmlParser::read()
 
     _tree = new Tree(deepDive(root, nullptr));
 
-    return *_tree;
+    return _tree;
 
 }
 

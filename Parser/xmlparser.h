@@ -9,7 +9,7 @@ class XmlParser
 public:
     XmlParser();
     ~XmlParser();
-    Tree &read();
+    Tree *read();
 private:
     TreeNode* deepDive(QDomNode &parent, TreeNode *tree_parent);
     Tree *_tree;
