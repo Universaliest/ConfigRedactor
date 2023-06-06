@@ -17,6 +17,6 @@ Redactor::~Redactor()
 
 void Redactor::on_pushButton_clicked()
 {
-   XMLParser().read();
+   XmlParser().read();
 }
 

@@ -7,12 +7,12 @@
 #include <QDebug>
 #include <QList>
 
-XMLParser::XMLParser()
+XmlParser::XmlParser()
 {
 
 }
 
-void XMLParser::read()
+void XmlParser::read()
 {
     QFile XMLFile("D:/Qt Projects/ConfigRedactor/Parser/settings.xml");
     if (!XMLFile.open(QIODevice::ReadWrite))
@@ -27,39 +27,31 @@ void XMLParser::read()
     XMLFile.close();
 
     QDomNode root = XMLDom.documentElement();
-    QList<QDomNode> item_buffer;
-    item_buffer.append(root);
-    while (!item_buffer.isEmpty())
+    deep_dive(root);
+
+}
+
+int deep_level = 0;
+
+void XmlParser::deep_dive(QDomNode &root)
+{
+    QString name = root.attributes().namedItem("displayed_name").nodeValue();
+    QString description = root.attributes().namedItem("description").nodeValue();
+    QString value = root.attributes().namedItem("value").nodeValue();
+
+
+    qDebug() << deep_level << name << "\t" << description << '\t' << value;
+
+    if (root.hasChildNodes())
     {
-        QDomNode item = item_buffer.last();
-        item_buffer.pop_back();
-        if (!item.hasChildNodes())
+        QDomNodeList child_list = root.childNodes();
+        for (int child_index = 0; child_index < child_list.count(); child_index++)
         {
-            QDomNamedNodeMap item_attributes = item.attributes();
-            for (int i = 0; i < item_attributes.count(); i++)
-            {
-                item = item_attributes.item(i);
-                qDebug() << item.nodeName() << '=' << item.nodeValue();
-            }
-        }
-        else
-        {
-            QDomNodeList list = item.childNodes();
-            for (int i = list.count(); i > 0; i--)
-                item_buffer.append(list.at(i));
+            QDomNode child = QDomNode(child_list.at(child_index));
+            deep_level++;
+            deep_dive(child);
+            deep_level--;
         }
     }
-//    for (int i = 0; i < items.count(); i++)
-//    {
-//        qDebug() << '\t' << items.at(i).nodeName();
-//        QDomNodeList second_items = items.at(1).childNodes();
-//        for (int j = 0; j < second_items.count(); j++)
-//        {
-//            qDebug() << "\t\t" << second_items.at(j).nodeName();
-//            for (int aaaa = 0; aaaa < second_items.at(j).attributes().count(); aaaa++)
-//            {
-//                qDebug() << "\t\t\t" << second_items.at(j).attributes().item(aaaa).nodeName() << '=' << second_items.at(j).attributes().item(aaaa).nodeValue();
-//            }
-//        }
-//    }
+
 }
