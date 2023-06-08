@@ -6,6 +6,7 @@
 
 #include <QAbstractItemModel>
 #include <QModelIndex>
+#include <QVector>
 
 class TreeModel: public QAbstractItemModel
 {
@@ -19,8 +20,12 @@ public:
     QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
     QModelIndex parent(const QModelIndex &child) const;
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
-    int columnCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
+
+    // Нахождение строки
+    // Это находится под вопросом
+    // int findRow(const TreeNode *nodeInfo) const;
+
 private:
     // Атрибуты
     TreeNode *_tree;
