@@ -10,26 +10,28 @@
 
 class TreeModel: public QAbstractItemModel
 {
+    Q_OBJECT
 public:
     //Конструктор и диструктор
     TreeModel();
-    TreeModel(TreeNode *tree, Data *data);
+    TreeModel(Tree *tree);
     ~TreeModel();
 
     //Пересформированные методы модели
     QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
     QModelIndex parent(const QModelIndex &child) const;
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
+    int columnCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
+    Qt::ItemFlags flags(const QModelIndex &index) const;
+    bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
+    bool setHeaderData(int section, Qt::Orientation orientation, const QVariant &value, int role = Qt::EditRole);
 
-    // Нахождение строки
-    // Это находится под вопросом
-    // int findRow(const TreeNode *nodeInfo) const;
 
 private:
     // Атрибуты
-    TreeNode *_tree;
-    Data *_data;
+    Tree *_tree;
+    TreeNode *getItem(const QModelIndex &index) const;
 };
 
 #endif // TREEMODEL_H

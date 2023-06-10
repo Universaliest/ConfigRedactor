@@ -1,139 +1,102 @@
 #include "treemodel.h"
 #include <Tree/treenode.h>
+#include <Tree/tree.h>
+
+#include <QDebug>
 
 TreeModel::TreeModel()
 {
 
 }
 
-TreeModel::TreeModel(TreeNode *tree, Data *data)
+TreeModel::TreeModel(Tree *tree)
 {
     _tree = tree;
-    _data = data;
+
+    // Дебагер =)
+    // qDebug() << getItem(QModelIndex());
 }
 
+TreeModel::~TreeModel()
+{
 
+}
+
+TreeNode *TreeModel::getItem(const QModelIndex &index) const
+{
+    if (index.isValid()){
+        TreeNode *item = static_cast<TreeNode*>(index.internalPointer());
+        if (item)
+            return item;
+    }
+    return _tree->root();
+}
 
 
 QModelIndex TreeModel::index(int row, int column, const QModelIndex &parent) const
 {
-    // Если все данные известны
-    if(hasIndex(row, column, parent)){
+    if (parent.isValid() && parent.column() != 0)
         return QModelIndex();
-    }
 
-    // Если индекс не допустим?
-    if(!parent.isValid()){
-        return createIndex(row, column, const_cast<TreeNode*>(&_tree[row]));
-    }
+    TreeNode *parentItem = getItem(parent);
+    if (!parentItem)
+        return QModelIndex();
 
-    // С этим местом небольшие проблемы, не понимаю прикола и кода
-    // В коде из инета, что ты скинул, присутствует ссылка, но у нас она вызывает ошибку
-    // ----------------------------------------------------------------------------------
-    //    NodeInfo* parentInfo = static_cast<NodeInfo*>(parent.internalPointer());
-    //    return createIndex(row, column, &parentInfo->children[row]);
-    // ----------------------------------------------------------------------------------
-
-    TreeNode* treeInfo = static_cast<TreeNode*>(parent.internalPointer());
-    return createIndex(row, column, treeInfo ->childAt(row));
+    TreeNode *childItem = parentItem ->childAt(row);
+    if (childItem)
+        return createIndex(row, column, childItem);
+    return QModelIndex();
 }
 
 
-// Под вопросом
-//int TreeModel::findRow(const TreeNode *nodeInfo) const
-//{
 
-//}
-
-
-QModelIndex TreeModel::parent(const QModelIndex &child) const
+QModelIndex TreeModel::parent(const QModelIndex &index) const
 {
-    // Если индекс не допустим?
-    if(!child.isValid()){
-        return QModelIndex();
-    }
 
-    TreeNode* childInfo = static_cast<TreeNode*>(child.internalPointer());
-    TreeNode* parentInfo = childInfo ->parent();
-    if(parentInfo != 0){    // Если родитель запрашивается не у корневого элемента
-        // Это действие у меня находится под вопросом
-        // return createIndex(findRow(parentInfo), /* столбец, по которому происходит ветвление, хз что это*/, parentInfo);
-    }
-    else {
-        return QModelIndex();
-    }
 }
+
 
 
 int TreeModel::rowCount(const QModelIndex &parent) const
 {
-    // На сайте тут такая охинея, не уверена, нужно ли нам это
-    // ----------------------------------------------------------------------------------------------
-    //    int FilesystemModel::rowCount(const QModelIndex &parent) const
-    //    {
-    //        if (!parent.isValid()) {
-    //            return _nodes.size(); // _nodes - это список корневых узлов
-    //        }
-    //        const NodeInfo* parentInfo = static_cast<const NodeInfo*>(parent.internalPointer());
-    //        return parentInfo->children.size(); // children - это список дочерних узлов
-    //    }
-    // ----------------------------------------------------------------------------------------------
 
 }
+
+
+
+int TreeModel::columnCount(const QModelIndex &parent) const
+{
+    Q_UNUSED(parent);
+    return Data::NumberOfValues;
+}
+
 
 
 QVariant TreeModel::data(const QModelIndex &index, int role) const
 {
-    // С датой очень сложно, хотела бы разобрать это с тобой
-    // ----------------------------------------------------------------------------------------------
-    //    QVariant FilesystemModel::data(const QModelIndex &index, int role) const
-    //    {
-    //        if (!index.isValid()) {
-    //            return QVariant();
-    //        }
 
-    //        const NodeInfo* nodeInfo = static_cast<NodeInfo*>(index.internalPointer());
-    //        const QFileInfo& fileInfo = nodeInfo->fileInfo;
-
-    //        switch (index.column()) {
-    //        case NameColumn:
-    //            return nameData(fileInfo, role);
-    //        case ModificationDateColumn:
-    //            if (role == Qt::DisplayRole) {
-    //                return fileInfo.lastModified();
-    //            }
-    //            break;
-    //        case SizeColumn:
-    //            if (role == Qt::DisplayRole) {
-    //                return fileInfo.isDir()? QVariant(): fileInfo.size();
-    //            }
-    //            break;
-    //        default:
-    //            break;
-    //        }
-    //        return QVariant();
-    //    }
-
-    //    QVariant FilesystemModel::nameData(const QFileInfo &fileInfo, int role) const
-    //    {
-    //        switch (role) {
-    //        case Qt::EditRole:
-    //            return fileInfo.fileName();
-    //        case Qt::DisplayRole:
-    //            if (fileInfo.isRoot()) {
-    //                return fileInfo.absoluteFilePath();
-    //            }
-    //            else if (fileInfo.isDir()){
-    //                return fileInfo.fileName();
-    //            }
-    //            else {
-    //                return fileInfo.completeBaseName();
-    //            }
-    //        default:
-    //            return QVariant();
-    //        }
-    //        Q_UNREACHABLE();
-    //    }
-    // ----------------------------------------------------------------------------------------------
 }
+
+
+
+Qt::ItemFlags TreeModel::flags(const QModelIndex &index) const
+{
+
+}
+
+
+
+bool TreeModel::setData(const QModelIndex &index, const QVariant &value, int role)
+{
+
+
+}
+
+
+bool TreeModel::setHeaderData(int section, Qt::Orientation orientation, const QVariant &value, int role)
+{
+    return false;
+}
+
+
 
