@@ -6,6 +6,7 @@
 class Data
 {
 public:
+    static const int NumberOfValues = 3;
     Data();
     Data(QString name, QString description, QString value);
     void setName(QString name);

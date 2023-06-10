@@ -1,4 +1,5 @@
 #include "treenode.h"
+#include <QVariant>
 
 TreeNode::TreeNode()
 {
@@ -41,6 +42,22 @@ TreeNode* TreeNode::childAt(int index)
 TreeNode *TreeNode::parent()
 {
     return _parent;
+}
+
+QVariant TreeNode::getValue(int column)
+{
+    if (column < 0 || column > Data::NumberOfValues)
+        return QVariant();
+    else
+    {
+        switch (column)
+        {
+        case 0:  return QVariant(_data->name());
+        case 1:  return QVariant(_data->description());
+        case 2:  return QVariant(_data->value());
+        default: return QVariant();
+        }
+    }
 }
 
 void TreeNode::setParent(TreeNode *parent)

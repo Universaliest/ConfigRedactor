@@ -15,6 +15,7 @@ public:
     int childrenCount();
     TreeNode* childAt(int index);
     TreeNode* parent();
+    QVariant getValue(int column);
 
     void setParent(TreeNode *parent);
     void appendChild(TreeNode *child);

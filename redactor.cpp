@@ -12,7 +12,6 @@ Redactor::Redactor(QWidget *parent)
 {
     ui->setupUi(this);
     tree = XmlParser().read();
-
     //Вот здесь
     model = new QStandardItemModel(1, 3);
 

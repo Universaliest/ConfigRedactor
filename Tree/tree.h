@@ -13,5 +13,4 @@ public:
 private:
     TreeNode *_root;
 };
-
 #endif // TREE_H
