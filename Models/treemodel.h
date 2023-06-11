@@ -29,7 +29,10 @@ public:
 
 
 private:
-    // Атрибуты
+    // 4 - последние обсуждение, скорее всего
+    // после некоторого обсуждения кода и документации
+    void setupModelData(const QStringList lines, TreeNode *parent);
+
     Tree *_tree;
     TreeNode *getItem(const QModelIndex &index) const;
 };
