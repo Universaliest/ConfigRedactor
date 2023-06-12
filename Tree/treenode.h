@@ -16,6 +16,7 @@ public:
     TreeNode* childAt(int index);
     TreeNode* parent();
     QVariant getValue(int column);
+    int childNumber();
 
     void setParent(TreeNode *parent);
     void appendChild(TreeNode *child);
@@ -25,6 +26,7 @@ private:
     Data *_data;
     TreeNode *_parent = nullptr;
     QList<TreeNode*> _children;
+    int _childNumber = -1;
     int _childrenCount = 0;
 };
 

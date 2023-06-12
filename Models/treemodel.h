@@ -28,6 +28,7 @@ public:
     bool setHeaderData(int section, Qt::Orientation orientation, const QVariant &value, int role = Qt::EditRole);
 
 
+
 private:
     // 4 - последние обсуждение, скорее всего
     // после некоторого обсуждения кода и документации

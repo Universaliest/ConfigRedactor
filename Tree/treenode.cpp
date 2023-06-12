@@ -67,6 +67,7 @@ void TreeNode::setParent(TreeNode *parent)
 
 void TreeNode::appendChild(TreeNode *child)
 {
+    child->_childNumber = _childrenCount;
     _children.append(child);
     _childrenCount++;
 }

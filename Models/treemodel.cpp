@@ -61,19 +61,7 @@ QModelIndex TreeModel::parent(const QModelIndex &index) const
     if (parentItem == _tree->root() || !parentItem)
         return QModelIndex();
 
-    // 1 - Как определить место ребенка для определенного родителя?
-    // --------------------------------------------------------------------------------
-    //    int TreeItem::childNumber() const
-    //    {
-    //        if (parentItem)
-    //            return parentItem->childItems.indexOf(const_cast<TreeItem*>(this));
-    //        return 0;
-    //    }
-    // где childItems - это List детей
-    // return createIndex(parentItem->childNumber(), 0, parentItem);
-    // --------------------------------------------------------------------------------
-    // return createIndex(, 0, parentItem);
-    return QModelIndex();   //Заглушка =)
+    return createIndex(parentItem->childNumber(), 0, parentItem);
 }
 
 
@@ -108,8 +96,18 @@ QVariant TreeModel::data(const QModelIndex &index, int role) const
 
     TreeNode *item = getItem(index);
 
-    // 2 - Как нам вернуть список данных?
-    // return item->dataPtr(index.column());
+    if (index.column() < 0 || index.column() > Data::NumberOfValues)
+        return QVariant();
+    else
+    {
+        switch (index.column())
+        {
+        case 0:  return QVariant(item->dataPtr()->name());
+        case 1:  return QVariant(item->dataPtr()->description());
+        case 2:  return QVariant(item->dataPtr()->value());
+        default: return QVariant();
+        }
+    }
 }
 
 
