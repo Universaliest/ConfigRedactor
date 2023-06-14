@@ -91,22 +91,17 @@ QVariant TreeModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
 
-    if (role != Qt::DisplayRole && role != Qt::EditRole)
+    if (role != Qt::DisplayRole)
         return QVariant();
 
     TreeNode *item = getItem(index);
 
-    if (index.column() < 0 || index.column() > Data::NumberOfValues)
-        return QVariant();
-    else
+    switch (index.column())
     {
-        switch (index.column())
-        {
         case 0:  return QVariant(item->dataPtr()->name());
         case 1:  return QVariant(item->dataPtr()->description());
         case 2:  return QVariant(item->dataPtr()->value());
         default: return QVariant();
-        }
     }
 }
 
@@ -125,19 +120,27 @@ Qt::ItemFlags TreeModel::flags(const QModelIndex &index) const
 bool TreeModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
     // 3 - хочу с тобой написать и разобраться
+    Q_UNUSED(index);
+    Q_UNUSED(value);
+    Q_UNUSED(role);
     return false; // заглушка
 }
 
 
 bool TreeModel::setHeaderData(int section, Qt::Orientation orientation, const QVariant &value, int role)
 {
+    Q_UNUSED(section);
+    Q_UNUSED(orientation);
+    Q_UNUSED(value);
+    Q_UNUSED(role);
     return false;
 }
 
-void TreeModel::setupModelData(const QStringList lines, TreeNode *parent)
+void TreeModel::setTree(Tree *tree)
 {
-
+    _tree = tree;
 }
+
 
 
 

@@ -26,14 +26,8 @@ public:
     Qt::ItemFlags flags(const QModelIndex &index) const;
     bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
     bool setHeaderData(int section, Qt::Orientation orientation, const QVariant &value, int role = Qt::EditRole);
-
-
-
+    void setTree(Tree *tree);
 private:
-    // 4 - последние обсуждение, скорее всего
-    // после некоторого обсуждения кода и документации
-    void setupModelData(const QStringList lines, TreeNode *parent);
-
     Tree *_tree;
     TreeNode *getItem(const QModelIndex &index) const;
 };

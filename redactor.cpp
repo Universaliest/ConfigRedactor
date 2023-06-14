@@ -15,7 +15,7 @@ Redactor::Redactor(QWidget *parent)
 
 
     tree = XmlParser().read();
-    TreeModel model(tree);
+    model = new TreeModel(tree);
 //    //Вот здесь
 //    model = new QStandardItemModel(1, 3);
 
@@ -26,7 +26,7 @@ Redactor::Redactor(QWidget *parent)
 //    };
 
 //    SetApModel(tree->root(), deep_levels, model);
-//    ui->treeView->setModel(model);
+    ui->treeView->setModel(model);
 }
 
 Redactor::~Redactor()
@@ -36,25 +36,3 @@ Redactor::~Redactor()
     delete model;
 }
 
-
-// deep_level - индекс?
-void SetApModel(TreeNode *node, QList <QModelIndex> deep_levels, QStandardItemModel *model){
-    model -> setData(deep_levels[0], node->dataPtr()->name());
-    model -> setData(deep_levels[1], node->dataPtr()->description());
-    model -> setData(deep_levels[2], node->dataPtr()->value());
-
-    // 0 -> false, иначе -> true
-    if (node->childrenCount()){
-        model ->insertRows(0, node->childrenCount(), deep_levels[0]);
-        model ->insertColumns(0, 3, deep_levels[0]);
-
-        for(int i = 0; i < node->childrenCount(); i++){
-            QList<QModelIndex> new_deep_levels = {
-                model -> index(i, 0, deep_levels[0]),
-                model -> index(i, 1, deep_levels[0]),
-                model -> index(i, 2, deep_levels[0])
-            };
-            SetApModel(node->childAt(i), new_deep_levels, model);
-        }
-    }
-};

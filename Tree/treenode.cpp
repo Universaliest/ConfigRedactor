@@ -60,6 +60,11 @@ QVariant TreeNode::getValue(int column)
     }
 }
 
+int TreeNode::childNumber()
+{
+    return _childNumber;
+}
+
 void TreeNode::setParent(TreeNode *parent)
 {
     _parent = parent;
