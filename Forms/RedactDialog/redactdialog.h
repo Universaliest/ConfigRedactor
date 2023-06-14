@@ -1,9 +1,12 @@
 #ifndef REDACTDIALOG_H
 #define REDACTDIALOG_H
 
+#include <QAbstractButton>
 #include <QDialog>
 #include "../../Models/treemodel.h"
 #include "../../Tree/tree.h"
+#include "../../Parser/xmlparser.h"
+
 namespace Ui {
 class RedactDialog;
 }
@@ -18,8 +21,13 @@ public:
 
 private:
     Ui::RedactDialog *ui;
+
+    XmlParser parser;
     Tree *tree;
     TreeModel *model;
+
+private slots:
+    void on_buttonBox_clicked(QAbstractButton *button);
 };
 
 #endif // REDACTDIALOG_H

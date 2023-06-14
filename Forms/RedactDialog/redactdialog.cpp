@@ -8,7 +8,6 @@ RedactDialog::RedactDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    XmlParser parser;
     tree = parser.read();
     model = new TreeModel(tree);
     ui->treeView->setModel(model);
@@ -20,3 +19,17 @@ RedactDialog::~RedactDialog()
     delete tree;
     delete model;
 }
+
+void RedactDialog::on_buttonBox_clicked(QAbstractButton *button)
+{
+    if (button->text() == "Save")
+    {
+        parser.write(tree);
+        accept();
+    }
+    if (button->text() == "Close")
+    {
+        reject();
+    }
+}
+
