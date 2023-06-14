@@ -1,0 +1,33 @@
+<settings>
+    <connections displayed_name = "Настройки подключения" description = "Секция настроек с параметрами подключений">
+        <spo_yy displayed_name = "СПО-УУ" description = "Секция настроек с параметрами подключения к СПО-УУ">
+                        <ip value = "..." displayed_name = "IP-адрес" description = "IP-адрес сервера СПО-УУ"/>
+                        <directive_port value = "..." displayed_name = "Порт управления" description = "Порт обмена директивами с СПО-УУ"/>
+                        <data_port value = "..." displayed_name = "Порт данных" description = "Порт обмена целевой информацией с СПО-УУ"/>
+		</spo_yy>
+                <sutp displayed_name = "СУТП" description = "Секция настроек с параметрами подключения к СУТП">
+                        <ip value = "..." displayed_name = "IP-адрес" description = "IP-адрес сервера СУТП"/>
+                        <directive_port value = "..." displayed_name = "Порт" description = "Порт сервера СУТП"/>
+		</sutp>
+                <sms displayed_name = "СМС" description = "Секция настроек с параметрами подключения к СМС">
+                        <ip value = "..." displayed_name = "IP-адрес" description = "IP-адрес сервера СМС"/>
+                        <directive_port value = "..." displayed_name = "Порт" description = "Порт сервера СМС"/>
+		</sms>
+    </connections>
+    <paths displayed_name = "Настройки рабочих директорий" description = "Секция настроек с параметрами рабочих директорий">
+        <monitored_dir  value= "..." displayed_name = "Отслеживаемая директория" description = "Путь к отслеживаемой директории"/>
+        <junk_dir value = "..." displayed_name = "Корзина" description = "Путь к директории хранения необработанной информации"/>
+        <target_data_dir value = "..." displayed_name = "Директория целевой информации" description = "Путь к директории целевой информации"/>
+        <plan_and_nu_dir value = "..." displayed_name = "Директория ПД" description = "Путь к директории обработки плановых данных"/>
+    </paths>
+    <files_names displayed_name = "Настройки имён файлов" description = "Секция настроек с именами файлов плановых данных">
+        <plan_file value = "..." displayed_name = "Файл с планом" description = "Имя файла с планом работ"/>
+        <nu_file value = "..." displayed_name = "Файл с НУ" description = "Имя файла с начальными условиями"/>
+    </files_names>
+    <connection_intervals displayed_name = "Настройки директив" description = "Секция настроек обмена директивами с СПО-УУ">
+        <ifk_distribution_interval value = "..." displayed_name = "Интервал ИФК" description = "Интервал рассылки ИФК. Задаётся в секундах"/>
+        <connection_control_interval value = "..." displayed_name = "Интервал КС" description = "Интервал отправки директивы контроля соединения. Задаётся в секундах"/>
+        <simple_directive_answer_interval value = "..." displayed_name = "Время ожидания" description = "Максимальное время ожидания ответа на директиву. Задаётся в секундах"/>
+    </connection_intervals>
+    <last_work_program_circles ids = "..."/> <!--не нужно отображать, сохранять отдельно-->
+</settings>

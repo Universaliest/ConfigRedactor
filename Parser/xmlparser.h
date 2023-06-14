@@ -10,8 +10,12 @@ public:
     XmlParser();
     ~XmlParser();
     Tree *read();
+    void write(Tree *tree);
 private:
-    TreeNode* deepDive(QDomNode &parent, TreeNode *tree_parent);
+    TreeNode* fromDomToTree(QDomNode &dom_parent, TreeNode *tree_parent);
+    void redactValuesInDom(QDomNode &dom_parent, TreeNode *tree_parent);
+
+    QDomDocument _xmlDoc;
     Tree *_tree;
 
 };
