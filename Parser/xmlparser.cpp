@@ -19,7 +19,7 @@ XmlParser::~XmlParser()
 
 Tree *XmlParser::read()
 {
-    QFile XMLFile("C:/QTRabot/ConfigRedactor/Parser/settings.xml");
+    QFile XMLFile("D:/Qt Projects/ConfigRedactor/Parser/settings.xml");
     if (!XMLFile.open(QIODevice::ReadOnly))
     {
         throw "Файл не открывается!";
@@ -29,7 +29,7 @@ Tree *XmlParser::read()
     XMLDom.setContent(&XMLFile);
     XMLFile.close();
 
-    QDomNode root = XMLDom.documentElement().childNodes().at(0);
+    QDomNode root = XMLDom.documentElement();
 
     _tree = new Tree(deepDive(root, nullptr));
 

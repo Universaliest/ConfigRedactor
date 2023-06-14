@@ -111,8 +111,10 @@ Qt::ItemFlags TreeModel::flags(const QModelIndex &index) const
 {
     if (!index.isValid())
         return Qt::NoItemFlags;
-
-    return Qt::ItemIsEditable;
+    Qt::ItemFlags flags = Qt::ItemIsEnabled;
+    if (index.column() == 2 && getItem(index)->dataPtr()->value() != "")
+        flags |= Qt::ItemIsEditable | Qt::ItemIsSelectable;
+    return flags;
 }
 
 

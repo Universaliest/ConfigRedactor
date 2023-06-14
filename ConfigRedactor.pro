@@ -10,6 +10,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Forms/RedactDialog/redactdialog.cpp \
     Models/treemodel.cpp \
     Parser/xmlparser.cpp \
     Tree/data.cpp \
@@ -19,6 +20,7 @@ SOURCES += \
     redactor.cpp
 
 HEADERS += \
+    Forms/RedactDialog/redactdialog.h \
     Models/treemodel.h \
     Parser/xmlparser.h \
     Tree/data.h \
@@ -27,6 +29,7 @@ HEADERS += \
     redactor.h
 
 FORMS += \
+    Forms/RedactDialog/redactdialog.ui \
     redactor.ui
 
 # Default rules for deployment.
