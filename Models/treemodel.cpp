@@ -12,9 +12,6 @@ TreeModel::TreeModel()
 TreeModel::TreeModel(Tree *tree)
 {
     _tree = tree;
-
-    // Дебагер =)
-    // qDebug() << flags(QModelIndex());
 }
 
 TreeModel::~TreeModel()
@@ -105,7 +102,17 @@ QVariant TreeModel::data(const QModelIndex &index, int role) const
     }
 }
 
-
+QVariant TreeModel::headerData(int section, Qt::Orientation orientation, int role) const
+{
+    if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
+        switch (section)
+        {
+        case 0: return QVariant("Название");
+        case 1: return QVariant("Описание");
+        case 2: return QVariant("Значение");
+        }
+    return QVariant();
+}
 
 Qt::ItemFlags TreeModel::flags(const QModelIndex &index) const
 {
@@ -121,7 +128,6 @@ Qt::ItemFlags TreeModel::flags(const QModelIndex &index) const
 
 bool TreeModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-    // 3 - хочу с тобой написать и разобраться
     if (role != Qt::EditRole)
         return false;
 
@@ -131,16 +137,6 @@ bool TreeModel::setData(const QModelIndex &index, const QVariant &value, int rol
     getItem(index)->dataPtr()->setValue(value.toString());
     emit dataChanged(index, index, {Qt::DisplayRole, Qt::EditRole});
     return true;
-}
-
-
-bool TreeModel::setHeaderData(int section, Qt::Orientation orientation, const QVariant &value, int role)
-{
-    Q_UNUSED(section);
-    Q_UNUSED(orientation);
-    Q_UNUSED(value);
-    Q_UNUSED(role);
-    return false;
 }
 
 void TreeModel::setTree(Tree *tree)
