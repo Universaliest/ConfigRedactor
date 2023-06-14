@@ -44,22 +44,6 @@ TreeNode *TreeNode::parent()
     return _parent;
 }
 
-QVariant TreeNode::getValue(int column)
-{
-    if (column < 0 || column > Data::NumberOfValues)
-        return QVariant();
-    else
-    {
-        switch (column)
-        {
-        case 0:  return QVariant(_data->name());
-        case 1:  return QVariant(_data->description());
-        case 2:  return QVariant(_data->value());
-        default: return QVariant();
-        }
-    }
-}
-
 int TreeNode::childNumber()
 {
     return _childNumber;
