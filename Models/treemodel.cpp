@@ -122,10 +122,15 @@ Qt::ItemFlags TreeModel::flags(const QModelIndex &index) const
 bool TreeModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
     // 3 - хочу с тобой написать и разобраться
-    Q_UNUSED(index);
-    Q_UNUSED(value);
-    Q_UNUSED(role);
-    return false; // заглушка
+    if (role != Qt::EditRole)
+        return false;
+
+    if (value == "")
+        return false;
+
+    getItem(index)->dataPtr()->setValue(value.toString());
+    emit dataChanged(index, index, {Qt::DisplayRole, Qt::EditRole});
+    return true;
 }
 
 

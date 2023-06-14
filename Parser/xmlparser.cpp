@@ -19,7 +19,7 @@ XmlParser::~XmlParser()
 
 Tree *XmlParser::read()
 {
-    QFile XMLFile("D:/Qt Projects/ConfigRedactor/Parser/settings.xml");
+    QFile XMLFile("C:/QTRabot/ConfigRedactor/Parser/settings.xml");
     if (!XMLFile.open(QIODevice::ReadOnly))
     {
         throw "Файл не открывается!";
