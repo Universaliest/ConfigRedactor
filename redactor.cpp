@@ -19,6 +19,7 @@ Redactor::~Redactor()
 
 void Redactor::on_pushButton_clicked()
 {
-    (new RedactDialog(this))->show();
+    RedactDialog dialog;
+    dialog.show();
 }
 
