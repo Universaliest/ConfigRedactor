@@ -1,6 +1,7 @@
 QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT += xml
 
 CONFIG += c++17
 
@@ -9,15 +10,26 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Forms/RedactDialog/redactdialog.cpp \
+    Models/treemodel.cpp \
     Parser/xmlparser.cpp \
+    Tree/data.cpp \
+    Tree/tree.cpp \
+    Tree/treenode.cpp \
     main.cpp \
     redactor.cpp
 
 HEADERS += \
+    Forms/RedactDialog/redactdialog.h \
+    Models/treemodel.h \
     Parser/xmlparser.h \
+    Tree/data.h \
+    Tree/tree.h \
+    Tree/treenode.h \
     redactor.h
 
 FORMS += \
+    Forms/RedactDialog/redactdialog.ui \
     redactor.ui
 
 # Default rules for deployment.
