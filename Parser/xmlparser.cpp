@@ -1,4 +1,5 @@
 #include "xmlparser.h"
+#include "pathoffile.h"
 #include <QFile>
 #include <QtXML/QDomDocument>
 #include <QtXml/QDomElement>
@@ -19,7 +20,7 @@ XmlParser::~XmlParser()
 
 Tree *XmlParser::read()
 {
-    QFile xml_file("D:/Qt Projects/ConfigRedactor/Parser/settings.xml");
+    QFile xml_file(PATHOFFILE);
     if (!xml_file.open(QIODevice::ReadOnly))
     {
         throw "Файл не открывается!";
@@ -41,7 +42,7 @@ void XmlParser::write(Tree *tree)
     QDomNode _root = _xmlDoc.documentElement();
     redactValuesInDom(_root, tree->root());
 
-    QFile file("D:/Qt Projects/ConfigRedactor/Parser/settings.xml");
+    QFile file(PATHOFFILE);
 
     if (!file.open(QIODevice::WriteOnly))
     {

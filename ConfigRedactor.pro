@@ -22,6 +22,7 @@ SOURCES += \
 HEADERS += \
     Forms/RedactDialog/redactdialog.h \
     Models/treemodel.h \
+    Parser/pathoffile.h \
     Parser/xmlparser.h \
     Tree/data.h \
     Tree/tree.h \
