@@ -20,6 +20,6 @@ Redactor::~Redactor()
 void Redactor::on_pushButton_clicked()
 {
     RedactDialog dialog;
-    dialog.show();
+    dialog.exec();
 }
 
