@@ -1,3 +1,5 @@
+///     Файл описания процедур класса XmlParser
+
 #include "xmlparser.h"
 #include "pathoffile.h"
 #include <QFile>
@@ -6,8 +8,10 @@
 #include <QtXml/QDomNodeList>
 #include <QCoreApplication>
 #include <QDebug>
+#include <QException>
 #include <QList>
 
+//  [1] Конструктор и деструктор
 XmlParser::XmlParser()
 {
 
@@ -18,12 +22,16 @@ XmlParser::~XmlParser()
 
 }
 
+//  [1]
+
+//  [2] Описание функции read
 Tree *XmlParser::read()
 {
     QFile xml_file(PATHOFFILE);
     if (!xml_file.open(QIODevice::ReadOnly))
     {
-        throw "Файл не открывается!";
+        qDebug() <<  "File not found!";
+        return NULL;
     }
     _xmlDoc.setContent(&xml_file);
     xml_file.close();
@@ -35,7 +43,10 @@ Tree *XmlParser::read()
     return _tree;
 
 }
+//  [2]
 
+//  [3] Описание функции write.
+//          *tree   -   указатель на дерево
 void XmlParser::write(Tree *tree)
 {
 
@@ -46,7 +57,8 @@ void XmlParser::write(Tree *tree)
 
     if (!file.open(QIODevice::WriteOnly))
     {
-        throw "a";
+        qDebug() <<  "File not found!";
+        return;
     }
 
     QTextStream stream(&file);
@@ -57,9 +69,14 @@ void XmlParser::write(Tree *tree)
 
 }
 
-int deep_level = 0;
+//  [3]
+
+//  Указатель на данные (временная переменная)
 Data *data;
 
+//  [4] Описание функции fromDomToTree.
+//          dom_parent  -   Родитель DOM-структуры
+//          tree_parent -   указатель на родительский узел дерева
 TreeNode* XmlParser::fromDomToTree(QDomNode &dom_parent, TreeNode *tree_parent)
 {
     QString name = dom_parent.attributes().namedItem("displayed_name").nodeValue();
@@ -76,15 +93,17 @@ TreeNode* XmlParser::fromDomToTree(QDomNode &dom_parent, TreeNode *tree_parent)
         for (int child_index = 0; child_index < child_list.count(); child_index++)
         {
             QDomNode child = QDomNode(child_list.at(child_index));
-            deep_level++;
             node->appendChild(fromDomToTree(child, node));
-            deep_level--;
         }
     }
     return node;
 }
+//  [4]
 
-void XmlParser::redactValuesInDom(QDomNode &dom_parent, TreeNode *tree_parent)
+//  [5] Описание функции redactValuesInDom.
+//          dom_parent  -   ссылка на родитель DOM-структуры
+//          tree_parent -   указатель на родительский узел дерева
+void XmlParser::x(QDomNode &dom_parent, TreeNode *tree_parent)
 {
     if (dom_parent.attributes().contains("value"))
         dom_parent.attributes().namedItem("value").setNodeValue(tree_parent->dataPtr()->value());
@@ -99,3 +118,4 @@ void XmlParser::redactValuesInDom(QDomNode &dom_parent, TreeNode *tree_parent)
         }
     }
 }
+// [5]

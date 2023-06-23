@@ -1,3 +1,16 @@
+/// КЛАСС Data
+/// Атрибуты класса:
+///     -   _name           -   название настройки;
+///     -   _description    -   описание настройки;
+///     -   _value          -   значение настройки;
+/// Методы класса:
+///     +   setName         }
+///     +   setDescription  } - сеттеры класса;
+///     +   setValue        }
+///
+///     +   name            }
+///     +   description     } - геттеры класса;
+///     +   value           }
 #ifndef DATA_H
 #define DATA_H
 
