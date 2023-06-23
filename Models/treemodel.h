@@ -26,7 +26,7 @@ class TreeModel: public QAbstractItemModel
 {
     Q_OBJECT
 public:
-    //Конструктор и диструктор
+    //Конструкторы и деструктор
     TreeModel();
     TreeModel(Tree *tree);
     ~TreeModel();

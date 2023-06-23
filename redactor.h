@@ -1,3 +1,8 @@
+/// КЛАСС Redactor
+// Атрибуты класса:
+//    -    *ui - указатель на интерфейс
+// Функции класса:
+//    -    on_buttonBox_clicked - функция для реагирование на нажатие кнопки
 #ifndef REDACTOR_H
 #define REDACTOR_H
 

@@ -22,7 +22,8 @@ TreeModel::~TreeModel()
 
 }
 // [1]    Конец описания конструкторов
-// [2]    Функция getItem.
+
+// [2]    Описание функции getItem.
 //            index - ссылка на существующий индекс, по которому возвращается структура.
 TreeNode *TreeModel::getItem(const QModelIndex &index) const
 {
@@ -34,6 +35,7 @@ TreeNode *TreeModel::getItem(const QModelIndex &index) const
     return _tree->root();
 }
 // [2]    Конец описания getItem.
+
 // [3]    Описание функции index.
 //            row, column - строка и столбец нового индекса
 //            parent - родитель нового индекса
@@ -54,7 +56,7 @@ QModelIndex TreeModel::index(int row, int column, const QModelIndex &parent) con
 //[3]    Конец описания index.
 
 //[4]    Описание parent.
-//            index - ссылка на существующий индекс, по которому его родитель.
+//            index - ссылка на существующий индекс, по которому возвращается его родитель.
 QModelIndex TreeModel::parent(const QModelIndex &index) const
 {
     if (!index.isValid())
@@ -71,7 +73,7 @@ QModelIndex TreeModel::parent(const QModelIndex &index) const
 //[4]    Конец описаения parent.
 
 //[5]    Описание методов rowCount и columnCount.
-//          index - ссылка на существующий индекс, по которому определяется количество столбцов и строк.
+//           parent - ссылка на существующий индекс, по которому определяется количество столбцов и строк.
 int TreeModel::rowCount(const QModelIndex &parent) const
 {
     if (parent.isValid() && parent.column() > 0)
@@ -89,9 +91,11 @@ int TreeModel::columnCount(const QModelIndex &parent) const
     Q_UNUSED(parent);
     return Data::NumberOfValues;
 }
+//[5]    Конец описания rowCount и columnCount.
 
-
-
+//[6]    Описание метода data.
+//            index - ссылка на существующий индекс, по которому определяется элемент
+//            role - роль (флаги), которая принадлежит индексу (редактируемвя, выделенная и тд.)
 QVariant TreeModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid())
@@ -110,7 +114,12 @@ QVariant TreeModel::data(const QModelIndex &index, int role) const
         default: return QVariant();
     }
 }
+//[6]    Конец описания data
 
+//[7]    Описание метода headerData.
+//            section - столбец
+//            orientation - расположение элемента
+//            role - роль (флаги), которая принадлежит индексу (редактируемвя, выделенная и тд.)
 QVariant TreeModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
@@ -122,7 +131,10 @@ QVariant TreeModel::headerData(int section, Qt::Orientation orientation, int rol
         }
     return QVariant();
 }
+//[7]    Конец описания headerData.
 
+//[8]    Описание метода flags.
+//            index - ссылка на существующий индекс, по которому определяется элемент
 Qt::ItemFlags TreeModel::flags(const QModelIndex &index) const
 {
     if (!index.isValid())
@@ -132,9 +144,12 @@ Qt::ItemFlags TreeModel::flags(const QModelIndex &index) const
         flags |= Qt::ItemIsEditable | Qt::ItemIsSelectable;
     return flags;
 }
+//[8]    Конец описания flags.
 
-
-
+//[9]    Описание метода setData.
+//            index - ссылка на существующий индекс, по которому определяется элемент
+//            value - ссылка на существующее значение определенного индекса
+//            role - роль (флаги), которая принадлежит индексу (редактируемвя, выделенная и тд.)
 bool TreeModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
     if (role != Qt::EditRole)
@@ -147,12 +162,15 @@ bool TreeModel::setData(const QModelIndex &index, const QVariant &value, int rol
     emit dataChanged(index, index, {Qt::DisplayRole, Qt::EditRole});
     return true;
 }
+//[9]    Конец описания setData.
 
+//[10]    Описание методов setTree.
+//            tree - указатель на дерево
 void TreeModel::setTree(Tree *tree)
 {
     _tree = tree;
 }
-
+//[10]    Конец описания setTree.
 
 
 
