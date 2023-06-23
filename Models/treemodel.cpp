@@ -1,9 +1,12 @@
+// Файл с описанием методов в классе TreeModel.
+
 #include "treemodel.h"
 #include <Tree/treenode.h>
 #include <Tree/tree.h>
 
 #include <QDebug>
 
+// [1]    Описание конструкторов.
 TreeModel::TreeModel()
 {
 
@@ -18,7 +21,9 @@ TreeModel::~TreeModel()
 {
 
 }
-
+// [1]    Конец описания конструкторов
+// [2]    Функция getItem.
+//            index - ссылка на существующий индекс, по которому возвращается структура.
 TreeNode *TreeModel::getItem(const QModelIndex &index) const
 {
     if (index.isValid()){
@@ -28,8 +33,10 @@ TreeNode *TreeModel::getItem(const QModelIndex &index) const
     }
     return _tree->root();
 }
-
-
+// [2]    Конец описания getItem.
+// [3]    Описание функции index.
+//            row, column - строка и столбец нового индекса
+//            parent - родитель нового индекса
 QModelIndex TreeModel::index(int row, int column, const QModelIndex &parent) const
 {
     if (parent.isValid() && parent.column() != 0)
@@ -44,9 +51,10 @@ QModelIndex TreeModel::index(int row, int column, const QModelIndex &parent) con
         return createIndex(row, column, childItem);
     return QModelIndex();
 }
+//[3]    Конец описания index.
 
-
-
+//[4]    Описание parent.
+//            index - ссылка на существующий индекс, по которому его родитель.
 QModelIndex TreeModel::parent(const QModelIndex &index) const
 {
     if (!index.isValid())
@@ -60,9 +68,10 @@ QModelIndex TreeModel::parent(const QModelIndex &index) const
 
     return createIndex(parentItem->childNumber(), 0, parentItem);
 }
+//[4]    Конец описаения parent.
 
-
-
+//[5]    Описание методов rowCount и columnCount.
+//          index - ссылка на существующий индекс, по которому определяется количество столбцов и строк.
 int TreeModel::rowCount(const QModelIndex &parent) const
 {
     if (parent.isValid() && parent.column() > 0)
